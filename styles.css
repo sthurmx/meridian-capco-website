@@ -496,3 +496,18 @@ em { font-style: italic; }
 /* ============ GOLD RULE ============ */
 .gold-rule { display: block; width: 48px; height: 2px; background: var(--gold-500); margin: 1.5rem 0; }
 .gold-rule.center { margin: 1.5rem auto; }
+
+/* ============ LOGO IMAGE ============ */
+.nav-logo-img {
+  height: 44px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.footer-logo-img {
+  height: 52px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
