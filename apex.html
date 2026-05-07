@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meridian Apex — Leaders Built to Last</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink:     #0c0e10;
+      --paper:   #f5f2ec;
+      --cream:   #ede9e0;
+      --gold:    #b8964a;
+      --gold-lt: #d4b06a;
+      --gold-dk: #8a6e32;
+      --slate:   #2a2f35;
+      --mid:     #5a6170;
+      --rule:    rgba(184,150,74,0.25);
+      --serif:   'Cormorant Garamond', Georgia, serif;
+      --sans:    'Barlow', sans-serif;
+      --cond:    'Barlow Condensed', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--ink); color: var(--paper); font-family: var(--sans); font-weight: 300; line-height: 1.7; overflow-x: hidden; }
+
+    nav { position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 4rem;background:rgba(12,14,16,0.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--rule); }
+    .nav-brand { display:flex;flex-direction:column;gap:0;text-decoration:none; }
+    .nav-brand-top { font-family:var(--cond);font-size:0.7rem;letter-spacing:0.25em;color:var(--gold);text-transform:uppercase; }
+    .nav-brand-main { font-family:var(--serif);font-size:1.25rem;font-weight:400;color:var(--paper);letter-spacing:0.04em; }
+    .nav-links { display:flex;gap:2.5rem;list-style:none; }
+    .nav-links a { font-family:var(--cond);font-size:0.78rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--mid);text-decoration:none;transition:color 0.2s; }
+    .nav-links a:hover { color:var(--gold); }
+    .nav-cta { font-family:var(--cond);font-size:0.78rem;letter-spacing:0.18em;text-transform:uppercase;padding:0.55rem 1.4rem;border:1px solid var(--gold);color:var(--gold);text-decoration:none;transition:background 0.2s,color 0.2s; }
+    .nav-cta:hover { background:var(--gold);color:var(--ink); }
+
+    .hero { min-height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden; }
+    .hero-left { display:flex;flex-direction:column;justify-content:flex-end;padding:10rem 4rem 5rem 4rem;position:relative;z-index:2; }
+    .hero-division-label { font-family:var(--cond);font-size:0.72rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;display:flex;align-items:center;gap:1rem; }
+    .hero-division-label::before { content:'';display:block;width:40px;height:1px;background:var(--gold); }
+    h1 { font-family:var(--serif);font-size:clamp(3.2rem,6vw,5.5rem);font-weight:300;line-height:1.05;color:var(--paper);margin-bottom:1rem; }
+    h1 em { font-style:italic;color:var(--gold-lt); }
+    .hero-sub { font-family:var(--sans);font-size:1rem;color:var(--mid);max-width:420px;margin-bottom:2.5rem;font-weight:300; }
+    .hero-ctas { display:flex;gap:1rem;flex-wrap:wrap; }
+    .btn-primary { font-family:var(--cond);font-size:0.8rem;letter-spacing:0.18em;text-transform:uppercase;padding:0.85rem 2rem;background:var(--gold);color:var(--ink);text-decoration:none;transition:background 0.2s; }
+    .btn-primary:hover { background:var(--gold-lt); }
+    .btn-ghost { font-family:var(--cond);font-size:0.8rem;letter-spacing:0.18em;text-transform:uppercase;padding:0.85rem 2rem;border:1px solid rgba(245,242,236,0.25);color:var(--paper);text-decoration:none;transition:border-color 0.2s,color 0.2s; }
+    .btn-ghost:hover { border-color:var(--gold);color:var(--gold); }
+    .hero-right { position:relative;overflow:hidden; }
+
+    /* ============================================================
+      PHOTO SLOT — EXECUTIVE HERO RIGHT PANEL
+      File: images/executive-hero.jpg
+      Suggested search: "confident executive portrait dark background" on Unsplash
+      Tips: moody, dramatic lighting, single professional figure
+    ============================================================ */
+    .hero-photo { position:absolute;inset:0;background-image:url('images/executive-hero.jpg');background-size:cover;background-position:center; }
+    .hero-photo-overlay { position:absolute;inset:0;background:linear-gradient(135deg,rgba(12,14,16,0.7) 0%,rgba(12,14,16,0.3) 100%); }
+    .hero-stat-block { position:absolute;bottom:5rem;left:3rem;right:3rem;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule); }
+    .hero-stat { background:rgba(12,14,16,0.75);backdrop-filter:blur(8px);padding:1.8rem 1.5rem; }
+    .hero-stat-num { font-family:var(--serif);font-size:2.8rem;font-weight:300;color:var(--gold);line-height:1; }
+    .hero-stat-label { font-family:var(--cond);font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--mid);margin-top:0.4rem; }
+
+    .rule-section { display:flex;align-items:center;gap:2rem;padding:0 4rem;margin:3rem 0;opacity:0.4; }
+    .rule-line { flex:1;height:1px;background:var(--gold); }
+    .rule-diamond { width:6px;height:6px;background:var(--gold);transform:rotate(45deg); }
+
+    section { padding:6rem 4rem; }
+    .section-label { font-family:var(--cond);font-size:0.72rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:flex;align-items:center;gap:1rem; }
+    .section-label::after { content:'';flex:0 0 30px;height:1px;background:var(--gold); }
+    h2 { font-family:var(--serif);font-size:clamp(2rem,4vw,3.2rem);font-weight:300;line-height:1.1;color:var(--paper);margin-bottom:1rem; }
+    h2 em { font-style:italic;color:var(--gold-lt); }
+    .section-intro { color:var(--mid);max-width:560px;font-size:1rem;margin-bottom:3.5rem; }
+
+    .philosophy { background:var(--slate);display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center; }
+    .philosophy-text p { color:rgba(245,242,236,0.7);margin-bottom:1.2rem;font-size:1rem; }
+    .philosophy-quote { border-left:2px solid var(--gold);padding-left:2rem; }
+    .philosophy-quote blockquote { font-family:var(--serif);font-size:1.55rem;font-style:italic;font-weight:300;color:var(--paper);line-height:1.4;margin-bottom:1rem; }
+    .philosophy-quote cite { font-family:var(--cond);font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold); }
+
+    .audience { background:var(--ink); }
+    .audience-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);margin-top:3rem; }
+    .audience-card { background:var(--ink);padding:2.5rem 2rem;transition:background 0.25s;position:relative;overflow:hidden; }
+    .audience-card::before { content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform 0.3s ease; }
+    .audience-card:hover::before { transform:scaleX(1); }
+    .audience-card:hover { background:rgba(184,150,74,0.05); }
+    .audience-icon { font-family:var(--cond);font-size:2.5rem;font-weight:700;color:rgba(184,150,74,0.2);line-height:1;margin-bottom:1rem; }
+    .audience-title { font-family:var(--cond);font-size:1rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--paper);margin-bottom:0.6rem; }
+    .audience-desc { color:var(--mid);font-size:0.9rem;line-height:1.65; }
+
+    .offerings { background:var(--slate); }
+    .offerings-grid { display:grid;grid-template-columns:repeat(2,1fr);gap:2px;background:rgba(184,150,74,0.15);margin-top:3rem; }
+    .offering-card { background:var(--slate);padding:3rem 2.5rem;position:relative;overflow:hidden;transition:background 0.25s; }
+    .offering-card:hover { background:rgba(184,150,74,0.06); }
+    .offering-num { font-family:var(--serif);font-size:5rem;font-weight:300;color:rgba(184,150,74,0.1);position:absolute;top:1.5rem;right:2rem;line-height:1; }
+    .offering-label { font-family:var(--cond);font-size:0.68rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:0.75rem; }
+    .offering-title { font-family:var(--serif);font-size:1.7rem;font-weight:300;color:var(--paper);margin-bottom:0.75rem;line-height:1.2; }
+    .offering-desc { color:var(--mid);font-size:0.9rem;margin-bottom:1.5rem; }
+    .offering-bullets { list-style:none; }
+    .offering-bullets li { font-size:0.88rem;color:rgba(245,242,236,0.6);padding:0.35rem 0;border-bottom:1px solid rgba(184,150,74,0.1);display:flex;align-items:center;gap:0.6rem; }
+    .offering-bullets li::before { content:'→';color:var(--gold);font-size:0.75rem; }
+
+    .formats { background:var(--ink); }
+    .formats-row { display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;margin-top:3rem; }
+    .format-card { border:1px solid var(--rule);padding:2rem 1.5rem;transition:border-color 0.25s,transform 0.25s; }
+    .format-card:hover { border-color:var(--gold);transform:translateY(-4px); }
+    .format-icon { font-size:1.5rem;margin-bottom:1rem; }
+    .format-title { font-family:var(--cond);font-size:0.95rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--paper);margin-bottom:0.5rem; }
+    .format-desc { font-size:0.85rem;color:var(--mid);line-height:1.6; }
+
+    .process { background:var(--slate); }
+    .process-steps { display:grid;grid-template-columns:repeat(4,1fr);margin-top:3.5rem;position:relative; }
+    .process-steps::before { content:'';position:absolute;top:2.2rem;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent); }
+    .process-step { padding:0 1.5rem;text-align:center; }
+    .step-circle { width:46px;height:46px;border-radius:50%;border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;font-family:var(--cond);font-size:0.8rem;font-weight:600;color:var(--gold);background:var(--slate);position:relative;z-index:1; }
+    .step-title { font-family:var(--cond);font-size:0.85rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--paper);margin-bottom:0.5rem; }
+    .step-desc { font-size:0.83rem;color:var(--mid);line-height:1.6; }
+
+    .outcomes { background:var(--ink); }
+    .outcomes-split { display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start; }
+    .outcomes-list { list-style:none;margin-top:1rem; }
+    .outcomes-list li { display:flex;gap:1.2rem;padding:1.2rem 0;border-bottom:1px solid var(--rule); }
+    .outcomes-list li:first-child { border-top:1px solid var(--rule); }
+    .outcome-marker { font-family:var(--serif);font-size:1.4rem;color:var(--gold);flex-shrink:0;line-height:1.3; }
+    .outcome-text { font-size:0.95rem;color:rgba(245,242,236,0.75);line-height:1.6; }
+    .outcomes-accent { background:var(--slate);padding:3rem;border-left:2px solid var(--gold); }
+    .outcomes-accent-headline { font-family:var(--serif);font-size:2rem;font-weight:300;color:var(--paper);line-height:1.2;margin-bottom:1.5rem; }
+    .outcomes-accent-headline em { font-style:italic;color:var(--gold-lt); }
+    .outcomes-accent p { font-size:0.9rem;color:var(--mid);line-height:1.7; }
+
+    .testimonial-section { background:var(--ink);padding:5rem 4rem;text-align:center; }
+    .testimonials-row { display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3.5rem; }
+    .testi-card { border:1px solid var(--rule);padding:2.5rem 2rem;text-align:left;position:relative; }
+    .testi-quote-mark { font-family:var(--serif);font-size:4rem;color:var(--gold);line-height:0.8;margin-bottom:1rem;opacity:0.5; }
+    .testi-text { font-family:var(--serif);font-size:1.05rem;font-style:italic;color:var(--paper);line-height:1.6;margin-bottom:1.5rem;font-weight:300; }
+    .testi-author { font-family:var(--cond);font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold); }
+    .testi-role { font-family:var(--cond);font-size:0.68rem;letter-spacing:0.1em;color:var(--mid);margin-top:0.2rem; }
+
+    .faq { background:var(--slate); }
+    .faq-grid { display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:3rem; }
+    .faq-item { padding-bottom:2rem;border-bottom:1px solid var(--rule); }
+    .faq-q { font-family:var(--cond);font-size:0.9rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--paper);margin-bottom:0.75rem; }
+    .faq-a { font-size:0.88rem;color:var(--mid);line-height:1.7; }
+
+    .cta-band { background:var(--gold);padding:5rem 4rem;display:grid;grid-template-columns:1fr auto;gap:4rem;align-items:center; }
+    .cta-band-headline { font-family:var(--serif);font-size:clamp(2rem,4vw,3rem);font-weight:300;color:var(--ink);line-height:1.15; }
+    .cta-band-headline em { font-style:italic; }
+    .cta-band-sub { color:rgba(12,14,16,0.6);font-size:0.95rem;margin-top:0.75rem; }
+    .btn-dark { font-family:var(--cond);font-size:0.82rem;letter-spacing:0.18em;text-transform:uppercase;padding:1rem 2.5rem;background:var(--ink);color:var(--gold);text-decoration:none;white-space:nowrap;transition:background 0.2s; }
+    .btn-dark:hover { background:var(--slate); }
+
+    .footer-mini { background:var(--ink);padding:2.5rem 4rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--rule); }
+    .footer-mini-brand { font-family:var(--serif);font-size:1rem;color:rgba(245,242,236,0.4); }
+    .footer-mini-links { display:flex;gap:2rem;list-style:none; }
+    .footer-mini-links a { font-family:var(--cond);font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--mid);text-decoration:none; }
+    .footer-mini-links a:hover { color:var(--gold); }
+
+    .fade-up { opacity:0;transform:translateY(28px);animation:fadeup 0.7s ease forwards; }
+    @keyframes fadeup { to { opacity:1;transform:none; } }
+    .hero-left .fade-up:nth-child(1) { animation-delay:0.1s; }
+    .hero-left .fade-up:nth-child(2) { animation-delay:0.25s; }
+    .hero-left .fade-up:nth-child(3) { animation-delay:0.4s; }
+    .hero-left .fade-up:nth-child(4) { animation-delay:0.55s; }
+
+    @media (max-width:900px) {
+      nav { padding:1rem 1.5rem; }
+      .nav-links { display:none; }
+      .hero { grid-template-columns:1fr;min-height:auto; }
+      .hero-left { padding:8rem 1.5rem 3rem; }
+      .hero-right { height:260px; }
+      .hero-stat-block { grid-template-columns:repeat(3,1fr);bottom:1rem;left:1rem;right:1rem; }
+      section { padding:4rem 1.5rem; }
+      .rule-section { padding:0 1.5rem; }
+      .philosophy,.outcomes-split,.faq-grid,.offerings-grid,.audience-grid { grid-template-columns:1fr; }
+      .formats-row { grid-template-columns:1fr 1fr; }
+      .process-steps { grid-template-columns:1fr 1fr;gap:2rem; }
+      .process-steps::before { display:none; }
+      .testimonials-row { grid-template-columns:1fr; }
+      .cta-band { grid-template-columns:1fr;gap:2rem; }
+      .footer-mini { flex-direction:column;gap:1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">
+    <span class="nav-brand-top">Meridian Capco, Inc.</span>
+    <span class="nav-brand-main">Executive</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="divisions.html">Divisions</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a href="contact.html" class="nav-cta">Inquire</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-division-label fade-up">Division II — Meridian Apex</div>
+    <h1 class="fade-up">Leaders<br><em>Built to Last.</em></h1>
+    <p class="hero-sub fade-up">Coaching and leadership development for founders, executives, and high-potential professionals who refuse to leave their best performance to chance.</p>
+    <div class="hero-ctas fade-up">
+      <a href="contact.html" class="btn-primary">Inquire About Coaching</a>
+      <a href="#offerings" class="btn-ghost">View Offerings</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-photo"></div>
+    <div class="hero-photo-overlay"></div>
+    <div class="hero-stat-block">
+      <div class="hero-stat">
+        <div class="hero-stat-num">1:1</div>
+        <div class="hero-stat-label">Personalized</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">All</div>
+        <div class="hero-stat-label">Leadership Levels</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">Real</div>
+        <div class="hero-stat-label">Results</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="rule-section"><div class="rule-line"></div><div class="rule-diamond"></div><div class="rule-line"></div></div>
+
+<!-- PHILOSOPHY -->
+<section class="philosophy">
+  <div class="philosophy-text">
+    <div class="section-label">Our Philosophy</div>
+    <h2>We Don't Develop Leaders.<br>We <em>Reveal</em> Them.</h2>
+    <p>The best leaders are not created from scratch — they are uncovered. Most high-performing professionals already carry the instincts, the conviction, and the raw capacity to lead at an elite level. What they lack is the structure, the mirror, and the accountability to unlock it consistently.</p>
+    <p>Meridian Apex exists to provide exactly that. We work at the intersection of performance and character — because leaders who cannot sustain their results over time are not truly leading. They are performing until they break.</p>
+    <p>Every engagement is built around a simple commitment: by the time you leave, you will lead with more clarity, decide with more conviction, and perform with less friction than when you arrived.</p>
+  </div>
+  <div class="philosophy-quote">
+    <blockquote>"The best leaders are not the loudest in the room. They are the clearest."</blockquote>
+    <cite>— Meridian Apex</cite>
+  </div>
+</section>
+
+<!-- WHO WE SERVE -->
+<section class="audience">
+  <div class="section-label">Who We Serve</div>
+  <h2>Built for Leaders at<br><em>Every Stage of the Journey.</em></h2>
+  <p class="section-intro">Leadership development is not one-size-fits-all. We work with a specific kind of professional — one who takes their performance seriously and is ready to do the work required to grow.</p>
+  <div class="audience-grid">
+    <div class="audience-card">
+      <div class="audience-icon">F</div>
+      <div class="audience-title">Founders & CEOs</div>
+      <div class="audience-desc">Leaders carrying the full weight of an organization who need strategic clarity, accountability structures, and a trusted thinking partner at the highest level.</div>
+    </div>
+    <div class="audience-card">
+      <div class="audience-icon">E</div>
+      <div class="audience-title">Senior Executives</div>
+      <div class="audience-desc">C-suite and VP-level leaders navigating complexity, organizational change, and the pressure to perform while developing the next generation of leadership beneath them.</div>
+    </div>
+    <div class="audience-card">
+      <div class="audience-icon">H</div>
+      <div class="audience-title">High-Potential Professionals</div>
+      <div class="audience-desc">Emerging leaders on the cusp of their next level — who have the talent but need the frameworks, habits, and presence to make the leap with confidence.</div>
+    </div>
+    <div class="audience-card">
+      <div class="audience-icon">T</div>
+      <div class="audience-title">Leadership Teams</div>
+      <div class="audience-desc">Executive teams that need to align, communicate better, and operate with unified clarity — especially through periods of growth, transition, or transformation.</div>
+    </div>
+    <div class="audience-card">
+      <div class="audience-icon">E</div>
+      <div class="audience-title">Entrepreneurs in Transition</div>
+      <div class="audience-desc">Business owners scaling from operator to CEO — navigating the identity shift, delegation challenges, and strategic clarity required to lead at the next level.</div>
+    </div>
+    <div class="audience-card">
+      <div class="audience-icon">P</div>
+      <div class="audience-title">Peak Performers</div>
+      <div class="audience-desc">High achievers who are already succeeding but know they are leaving performance on the table — and are ready for the coaching relationship that will close that gap.</div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFERINGS -->
+<section class="offerings" id="offerings">
+  <div class="section-label">Coaching Offerings</div>
+  <h2>Structured for<br><em>Your Level. Your Goals.</em></h2>
+  <p class="section-intro">Every engagement is purpose-built. We do not offer off-the-shelf programs — we design every coaching relationship around your specific situation, goals, and leadership stage.</p>
+  <div class="offerings-grid">
+    <div class="offering-card">
+      <div class="offering-num">01</div>
+      <div class="offering-label">Offering One</div>
+      <div class="offering-title">Executive Coaching</div>
+      <div class="offering-desc">Deep, ongoing 1-on-1 coaching for senior leaders and founders. Built around your specific goals, challenges, and performance gaps.</div>
+      <ul class="offering-bullets">
+        <li>Bi-weekly 60-minute coaching sessions</li>
+        <li>Strategic clarity and decision-making frameworks</li>
+        <li>Accountability structures between sessions</li>
+        <li>Leadership presence and communication development</li>
+        <li>360-degree feedback integration and analysis</li>
+      </ul>
+    </div>
+    <div class="offering-card">
+      <div class="offering-num">02</div>
+      <div class="offering-label">Offering Two</div>
+      <div class="offering-title">Leadership Accelerator</div>
+      <div class="offering-desc">A structured, intensive engagement for high-potential leaders ready to compress their growth timeline and step into their next level now.</div>
+      <ul class="offering-bullets">
+        <li>90-day intensive coaching program</li>
+        <li>Leadership identity and style assessment</li>
+        <li>Performance gap analysis and action planning</li>
+        <li>Weekly sessions with between-session assignments</li>
+        <li>Measurable milestone tracking and review</li>
+      </ul>
+    </div>
+    <div class="offering-card">
+      <div class="offering-num">03</div>
+      <div class="offering-label">Offering Three</div>
+      <div class="offering-title">Team Leadership Advisory</div>
+      <div class="offering-desc">For leadership teams that need to align, communicate clearly, and operate as a unified force — especially through growth and organizational change.</div>
+      <ul class="offering-bullets">
+        <li>Team dynamics and communication assessment</li>
+        <li>Executive team alignment workshops</li>
+        <li>Conflict resolution and decision-making protocols</li>
+        <li>Culture and values operationalization</li>
+        <li>Organizational design advisory support</li>
+      </ul>
+    </div>
+    <div class="offering-card">
+      <div class="offering-num">04</div>
+      <div class="offering-label">Offering Four</div>
+      <div class="offering-title">Strategic Clarity Intensive</div>
+      <div class="offering-desc">A focused, single-engagement session for leaders facing a pivotal decision, transition, or inflection point that demands clarity now.</div>
+      <ul class="offering-bullets">
+        <li>Half-day or full-day intensive format</li>
+        <li>Deep-dive into the specific challenge or decision</li>
+        <li>Structured decision-making frameworks applied live</li>
+        <li>Clear action plan with defined next steps</li>
+        <li>30-day follow-up accountability check-in</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- DELIVERY FORMATS -->
+<section class="formats">
+  <div class="section-label">How We Work</div>
+  <h2>Coaching That<br><em>Fits Your Life.</em></h2>
+  <p class="section-intro">We offer multiple engagement models designed around the realities of a demanding leadership schedule.</p>
+  <div class="formats-row">
+    <div class="format-card">
+      <div class="format-icon">◈</div>
+      <div class="format-title">Virtual Coaching</div>
+      <div class="format-desc">High-impact coaching delivered via video — the preferred format for most executives managing complex schedules across multiple locations.</div>
+    </div>
+    <div class="format-card">
+      <div class="format-icon">◆</div>
+      <div class="format-title">In-Person Sessions</div>
+      <div class="format-desc">Available for clients in the Atlanta, Georgia market and by arrangement for intensive engagements nationally.</div>
+    </div>
+    <div class="format-card">
+      <div class="format-icon">◇</div>
+      <div class="format-title">Team Workshops</div>
+      <div class="format-desc">Facilitated in-person or virtual workshops for leadership teams — structured around specific alignment, communication, or development objectives.</div>
+    </div>
+    <div class="format-card">
+      <div class="format-icon">○</div>
+      <div class="format-title">Retainer Advisory</div>
+      <div class="format-desc">Ongoing advisory access for senior leaders who need a trusted thinking partner available beyond scheduled sessions — for real-time decisions and challenges.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process">
+  <div class="section-label">Our Process</div>
+  <h2>From First Conversation<br>to <em>Sustained Performance.</em></h2>
+  <p class="section-intro">Every Meridian Apex engagement follows the same disciplined four-step process.</p>
+  <div class="process-steps">
+    <div class="process-step">
+      <div class="step-circle">01</div>
+      <div class="step-title">Assess</div>
+      <div class="step-desc">We evaluate your current leadership situation, identify performance gaps, and understand what success looks like for you specifically.</div>
+    </div>
+    <div class="process-step">
+      <div class="step-circle">02</div>
+      <div class="step-title">Design</div>
+      <div class="step-desc">We build a custom coaching engagement — right offering, right format, right pace for your leadership stage and goals.</div>
+    </div>
+    <div class="process-step">
+      <div class="step-circle">03</div>
+      <div class="step-title">Coach</div>
+      <div class="step-desc">We deliver rigorous, honest, and practical coaching that challenges you to grow and holds you accountable to what matters most.</div>
+    </div>
+    <div class="process-step">
+      <div class="step-circle">04</div>
+      <div class="step-title">Sustain</div>
+      <div class="step-desc">We build structures, habits, and frameworks that compound your growth long after the formal engagement ends.</div>
+    </div>
+  </div>
+</section>
+
+<!-- OUTCOMES -->
+<section class="outcomes">
+  <div class="section-label">What You'll Gain</div>
+  <h2>Outcomes That<br><em>Define Your Next Chapter.</em></h2>
+  <p class="section-intro">Every Meridian Apex engagement is measured against real leadership outcomes — not sessions completed.</p>
+  <div class="outcomes-split">
+    <ul class="outcomes-list">
+      <li><div class="outcome-marker">→</div><div class="outcome-text">Sharper strategic clarity — knowing what matters, what doesn't, and why</div></li>
+      <li><div class="outcome-marker">→</div><div class="outcome-text">Faster, more confident decision-making under pressure and ambiguity</div></li>
+      <li><div class="outcome-marker">→</div><div class="outcome-text">A stronger, more consistent leadership presence that earns trust</div></li>
+      <li><div class="outcome-marker">→</div><div class="outcome-text">Better communication — with your team, your board, and your stakeholders</div></li>
+      <li><div class="outcome-marker">→</div><div class="outcome-text">A personal operating system built for sustained high performance</div></li>
+      <li><div class="outcome-marker">→</div><div class="outcome-text">The ability to develop and elevate the leaders around you</div></li>
+    </ul>
+    <div class="outcomes-accent">
+      <div class="outcomes-accent-headline">The leaders who invest in themselves <em>first</em> build organizations that last.</div>
+      <p>Leadership is not a title. It is a practice. And like every practice worth having, it requires structured development, honest feedback, and the discipline to show up when it is hard. Meridian Apex exists to be the environment where that development happens — with the rigor it deserves.</p>
+      <br>
+      <p>The question is not whether you need a coach. The question is whether you are ready to work with one who will tell you the truth.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonial-section">
+  <div class="section-label" style="justify-content:center;">What Clients Say</div>
+  <h2 style="text-align:center;">The Standard<br><em>Speaks for Itself.</em></h2>
+  <div class="testimonials-row">
+    <div class="testi-card">
+      <div class="testi-quote-mark">"</div>
+      <div class="testi-text">I came in thinking I needed help with strategy. I left with a completely rebuilt relationship with how I make decisions. The clarity I gained was worth more than I can quantify.</div>
+      <div class="testi-author">Founder & CEO</div>
+      <div class="testi-role">Growth-Stage Company — Atlanta, GA</div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-quote-mark">"</div>
+      <div class="testi-text">The honesty was what I needed most. I had coaches before who just validated me. Meridian Apex actually challenged me — and that changed everything.</div>
+      <div class="testi-author">VP of Operations</div>
+      <div class="testi-role">Mid-Market Company — Southeast Region</div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-quote-mark">"</div>
+      <div class="testi-text">Our leadership team went from constantly misaligned to genuinely unified. We make better decisions faster, and we trust each other at a level we didn't before.</div>
+      <div class="testi-author">Chief Executive Officer</div>
+      <div class="testi-role">Multi-Division Organization — 80 Employees</div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="section-label">Common Questions</div>
+  <h2>Before You <em>Inquire.</em></h2>
+  <div class="faq-grid">
+    <div class="faq-item">
+      <div class="faq-q">How is executive coaching different from consulting?</div>
+      <div class="faq-a">Consultants solve problems for you. Coaches develop your capacity to solve problems yourself. Meridian Apex builds leaders — not dependencies. We are in the business of making ourselves unnecessary over time.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">How long does a coaching engagement typically last?</div>
+      <div class="faq-a">Most ongoing coaching engagements run three to six months as a starting commitment. The Leadership Accelerator is a structured 90-day program. Strategic Clarity Intensives are single-session engagements.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Is coaching delivered in-person or virtually?</div>
+      <div class="faq-a">Most ongoing coaching is conducted virtually via video. In-person sessions are available in the Atlanta market and by arrangement for intensive engagements nationally.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What makes Meridian Apex different?</div>
+      <div class="faq-a">We are direct. We do not traffic in validation. We bring rigor, honesty, and a genuine commitment to your long-term growth — not your short-term comfort. If you are looking for someone who will tell you what you want to hear, we are not the right fit.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Do you work with companies or individuals?</div>
+      <div class="faq-a">Both. We work with individual leaders at all levels and with leadership teams through our Team Leadership Advisory offering. For organizations seeking broader development, we coordinate with our sister divisions as needed.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">How do I know if coaching is right for me right now?</div>
+      <div class="faq-a">If you are facing a significant leadership challenge, a major transition, or a performance ceiling you have not been able to break through on your own — now is the right time. We start every engagement with an honest conversation about fit.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<div class="cta-band">
+  <div>
+    <div class="cta-band-headline">Ready to Lead<br><em>at Your Highest Level?</em></div>
+    <div class="cta-band-sub">Tell us where you are. We will tell you what is possible.</div>
+  </div>
+  <a href="contact.html" class="btn-dark">Start the Conversation</a>
+</div>
+
+<footer class="footer-mini">
+  <div class="footer-mini-brand">Meridian Apex — A Division of Meridian Capco, Inc.</div>
+  <ul class="footer-mini-links">
+    <li><a href="divisions.html">All Divisions</a></li>
+    <li><a href="about.html">About Meridian</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</footer>
+
+</body>
+</html>

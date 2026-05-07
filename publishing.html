@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meridian Publishing — Words That Build Empires</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink:     #0c0e10;
+      --paper:   #f5f2ec;
+      --gold:    #b8964a;
+      --gold-lt: #d4b06a;
+      --gold-dk: #8a6e32;
+      --slate:   #2a2f35;
+      --mid:     #5a6170;
+      --rule:    rgba(184,150,74,0.25);
+      --serif:   'Cormorant Garamond', Georgia, serif;
+      --sans:    'Barlow', sans-serif;
+      --cond:    'Barlow Condensed', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--ink); color: var(--paper); font-family: var(--sans); font-weight: 300; line-height: 1.7; overflow-x: hidden; }
+
+    nav { position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 4rem;background:rgba(12,14,16,0.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--rule); }
+    .nav-brand { display:flex;flex-direction:column;gap:0;text-decoration:none; }
+    .nav-brand-top { font-family:var(--cond);font-size:0.7rem;letter-spacing:0.25em;color:var(--gold);text-transform:uppercase; }
+    .nav-brand-main { font-family:var(--serif);font-size:1.25rem;font-weight:400;color:var(--paper);letter-spacing:0.04em; }
+    .nav-links { display:flex;gap:2.5rem;list-style:none; }
+    .nav-links a { font-family:var(--cond);font-size:0.78rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--mid);text-decoration:none;transition:color 0.2s; }
+    .nav-links a:hover { color:var(--gold); }
+    .nav-cta { font-family:var(--cond);font-size:0.78rem;letter-spacing:0.18em;text-transform:uppercase;padding:0.55rem 1.4rem;border:1px solid var(--gold);color:var(--gold);text-decoration:none;transition:background 0.2s,color 0.2s; }
+    .nav-cta:hover { background:var(--gold);color:var(--ink); }
+
+    .hero { min-height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden; }
+    .hero-left { display:flex;flex-direction:column;justify-content:flex-end;padding:10rem 4rem 5rem 4rem;position:relative;z-index:2; }
+    .hero-division-label { font-family:var(--cond);font-size:0.72rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;display:flex;align-items:center;gap:1rem; }
+    .hero-division-label::before { content:'';display:block;width:40px;height:1px;background:var(--gold); }
+    h1 { font-family:var(--serif);font-size:clamp(3.2rem,6vw,5.5rem);font-weight:300;line-height:1.05;color:var(--paper);margin-bottom:1rem; }
+    h1 em { font-style:italic;color:var(--gold-lt); }
+    .hero-sub { font-family:var(--sans);font-size:1rem;color:var(--mid);max-width:420px;margin-bottom:2.5rem;font-weight:300; }
+    .hero-ctas { display:flex;gap:1rem;flex-wrap:wrap; }
+    .btn-primary { font-family:var(--cond);font-size:0.8rem;letter-spacing:0.18em;text-transform:uppercase;padding:0.85rem 2rem;background:var(--gold);color:var(--ink);text-decoration:none;transition:background 0.2s; }
+    .btn-primary:hover { background:var(--gold-lt); }
+    .btn-ghost { font-family:var(--cond);font-size:0.8rem;letter-spacing:0.18em;text-transform:uppercase;padding:0.85rem 2rem;border:1px solid rgba(245,242,236,0.25);color:var(--paper);text-decoration:none;transition:border-color 0.2s,color 0.2s; }
+    .btn-ghost:hover { border-color:var(--gold);color:var(--gold); }
+    .hero-right { position:relative;overflow:hidden; }
+
+    /* ============================================================
+      PHOTO SLOT — PUBLISHING HERO RIGHT PANEL
+      File: images/publishing-hero.jpg
+      Suggested search: "open book desk reading warm light editorial" on Unsplash
+      Tips: warm tones, literary feel, clean and elegant — not cluttered
+    ============================================================ */
+    .hero-photo { position:absolute;inset:0;background-image:url('images/publishing-hero.jpg');background-size:cover;background-position:center; }
+    .hero-photo-overlay { position:absolute;inset:0;background:linear-gradient(135deg,rgba(12,14,16,0.65) 0%,rgba(12,14,16,0.25) 100%); }
+    .hero-stat-block { position:absolute;bottom:5rem;left:3rem;right:3rem;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule); }
+    .hero-stat { background:rgba(12,14,16,0.75);backdrop-filter:blur(8px);padding:1.8rem 1.5rem; }
+    .hero-stat-num { font-family:var(--serif);font-size:2.8rem;font-weight:300;color:var(--gold);line-height:1; }
+    .hero-stat-label { font-family:var(--cond);font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--mid);margin-top:0.4rem; }
+
+    .rule-section { display:flex;align-items:center;gap:2rem;padding:0 4rem;margin:3rem 0;opacity:0.4; }
+    .rule-line { flex:1;height:1px;background:var(--gold); }
+    .rule-diamond { width:6px;height:6px;background:var(--gold);transform:rotate(45deg); }
+
+    section { padding:6rem 4rem; }
+    .section-label { font-family:var(--cond);font-size:0.72rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:flex;align-items:center;gap:1rem; }
+    .section-label::after { content:'';flex:0 0 30px;height:1px;background:var(--gold); }
+    h2 { font-family:var(--serif);font-size:clamp(2rem,4vw,3.2rem);font-weight:300;line-height:1.1;color:var(--paper);margin-bottom:1rem; }
+    h2 em { font-style:italic;color:var(--gold-lt); }
+    .section-intro { color:var(--mid);max-width:560px;font-size:1rem;margin-bottom:3.5rem; }
+
+    .philosophy { background:var(--slate);display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center; }
+    .philosophy-text p { color:rgba(245,242,236,0.7);margin-bottom:1.2rem;font-size:1rem; }
+    .philosophy-quote { border-left:2px solid var(--gold);padding-left:2rem; }
+    .philosophy-quote blockquote { font-family:var(--serif);font-size:1.55rem;font-style:italic;font-weight:300;color:var(--paper);line-height:1.4;margin-bottom:1rem; }
+    .philosophy-quote cite { font-family:var(--cond);font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold); }
+
+    .audience { background:var(--ink); }
+    .audience-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);margin-top:3rem; }
+    .audience-card { background:var(--ink);padding:2.5rem 2rem;transition:background 0.25s;position:relative;overflow:hidden; }
+    .audience-card::before { content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform 0.3s ease; }
+    .audience-card:hover::before { transform:scaleX(1); }
+    .audience-card:hover { background:rgba(184,150,74,0.05); }
+    .audience-icon { font-family:var(--cond);font-size:2.5rem;font-weight:700;color:rgba(184,150,74,0.2);line-height:1;margin-bottom:1rem; }
+    .audience-title { font-family:var(--cond);font-size:1rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--paper);margin-bottom:0.6rem; }
+    .audience-desc { color:var(--mid);font-size:0.9rem;line-height:1.65; }
+
+    .offerings { background:var(--slate); }
+    .offerings-grid { display:grid;grid-template-columns:repeat(2,1fr);gap:2px;background:rgba(184,150,74,0.15);margin-top:3rem; }
+    .offering-card { background:var(--slate);padding:3rem 2.5rem;position:relative;overflow:hidden;transition:background 0.25s; }
+    .offering-card:hover { background:rgba(184,150,74,0.06); }
+    .offering-num { font-family:var(--serif);font-size:5rem;font-weight:300;color:rgba(184,150,74,0.1);position:absolute;top:1.5rem;right:2rem;line-height:1; }
+    .offering-label { font-family:var(--cond);font-size:0.68rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:0.75rem; }
+    .offering-title { font-family:var(--serif);font-size:1.7rem;font-weight:300;color:var(--paper);margin-bottom:0.75rem;line-height:1.2; }
+    .offering-desc { color:var(--mid);font-size:0.9rem;margin-bottom:1.5rem; }
+    .offering-bullets { list-style:none; }
+    .offering-bullets li { font-size:0.88rem;color:rgba(245,242,236,0.6);padding:0.35rem 0;border-bottom:1px solid rgba(184,150,74,0.1);display:flex;align-items:center;gap:0.6rem; }
+    .offering-bullets li::before { content:'→';color:var(--gold);font-size:0.75rem; }
+
+    .process { background:var(--ink); }
+    .process-steps { display:grid;grid-template-columns:repeat(4,1fr);margin-top:3.5rem;position:relative; }
+    .process-steps::before { content:'';position:absolute;top:2.2rem;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent); }
+    .process-step { padding:0 1.5rem;text-align:center; }
+    .step-circle { width:46px;height:46px;border-radius:50%;border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;font-family:var(--cond);font-size:0.8rem;font-weight:600;color:var(--gold);background:var(--ink);position:relative;z-index:1; }
+    .step-title { font-family:var(--cond);font-size:0.85rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--paper);margin-bottom:0.5rem; }
+    .step-desc { font-size:0.83rem;color:var(--mid);line-height:1.6; }
+
+    .outcomes { background:var(--slate); }
+    .outcomes-split { display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start; }
+    .outcomes-list { list-style:none;margin-top:1rem; }
+    .outcomes-list li { display:flex;gap:1.2rem;padding:1.2rem 0;border-bottom:1px solid var(--rule); }
+    .outcomes-list li:first-child { border-top:1px solid var(--rule); }
+    .outcome-marker { font-family:var(--serif);font-size:1.4rem;color:var(--gold);flex-shrink:0;line-height:1.3; }
+    .outcome-text { font-size:0.95rem;color:rgba(245,242,236,0.75);line-height:1.6; }
+    .outcomes-accent { background:var(--ink);padding:3rem;border-left:2px solid var(--gold); }
+    .outcomes-accent-headline { font-family:var(--serif);font-size:2rem;font-weight:300;color:var(--paper);line-height:1.2;margin-bottom:1.5rem; }
+    .outcomes-accent-headline em { font-style:italic;color:var(--gold-lt); }
+    .outcomes-accent p { font-size:0.9rem;color:var(--mid);line-height:1.7; }
+
+    .testimonial-section { background:var(--ink);padding:5rem 4rem;text-align:center; }
+    .testimonials-row { display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3.5rem; }
+    .testi-card { border:1px solid var(--rule);padding:2.5rem 2rem;text-align:left; }
+    .testi-quote-mark { font-family:var(--serif);font-size:4rem;color:var(--gold);line-height:0.8;margin-bottom:1rem;opacity:0.5; }
+    .testi-text { font-family:var(--serif);font-size:1.05rem;font-style:italic;color:var(--paper);line-height:1.6;margin-bottom:1.5rem;font-weight:300; }
+    .testi-author { font-family:var(--cond);font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold); }
+    .testi-role { font-family:var(--cond);font-size:0.68rem;letter-spacing:0.1em;color:var(--mid);margin-top:0.2rem; }
+
+    .faq { background:var(--slate); }
+    .faq-grid { display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:3rem; }
+    .faq-item { padding-bottom:2rem;border-bottom:1px solid var(--rule); }
+    .faq-q { font-family:var(--cond);font-size:0.9rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--paper);margin-bottom:0.75rem; }
+    .faq-a { font-size:0.88rem;color:var(--mid);line-height:1.7; }
+
+    .cta-band { background:var(--gold);padding:5rem 4rem;display:grid;grid-template-columns:1fr auto;gap:4rem;align-items:center; }
+    .cta-band-headline { font-family:var(--serif);font-size:clamp(2rem,4vw,3rem);font-weight:300;color:var(--ink);line-height:1.15; }
+    .cta-band-headline em { font-style:italic; }
+    .cta-band-sub { color:rgba(12,14,16,0.6);font-size:0.95rem;margin-top:0.75rem; }
+    .btn-dark { font-family:var(--cond);font-size:0.82rem;letter-spacing:0.18em;text-transform:uppercase;padding:1rem 2.5rem;background:var(--ink);color:var(--gold);text-decoration:none;white-space:nowrap;transition:background 0.2s; }
+    .btn-dark:hover { background:var(--slate); }
+
+    .footer-mini { background:var(--ink);padding:2.5rem 4rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--rule); }
+    .footer-mini-brand { font-family:var(--serif);font-size:1rem;color:rgba(245,242,236,0.4); }
+    .footer-mini-links { display:flex;gap:2rem;list-style:none; }
+    .footer-mini-links a { font-family:var(--cond);font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--mid);text-decoration:none; }
+    .footer-mini-links a:hover { color:var(--gold); }
+
+    .fade-up { opacity:0;transform:translateY(28px);animation:fadeup 0.7s ease forwards; }
+    @keyframes fadeup { to { opacity:1;transform:none; } }
+    .hero-left .fade-up:nth-child(1) { animation-delay:0.1s; }
+    .hero-left .fade-up:nth-child(2) { animation-delay:0.25s; }
+    .hero-left .fade-up:nth-child(3) { animation-delay:0.4s; }
+    .hero-left .fade-up:nth-child(4) { animation-delay:0.55s; }
+
+    @media (max-width:900px) {
+      nav { padding:1rem 1.5rem; }
+      .nav-links { display:none; }
+      .hero { grid-template-columns:1fr;min-height:auto; }
+      .hero-left { padding:8rem 1.5rem 3rem; }
+      .hero-right { height:260px; }
+      section { padding:4rem 1.5rem; }
+      .rule-section { padding:0 1.5rem; }
+      .philosophy,.outcomes-split,.faq-grid,.offerings-grid,.audience-grid { grid-template-columns:1fr; }
+      .process-steps { grid-template-columns:1fr 1fr;gap:2rem; }
+      .process-steps::before { display:none; }
+      .testimonials-row { grid-template-columns:1fr; }
+      .cta-band { grid-template-columns:1fr;gap:2rem; }
+      .footer-mini { flex-direction:column;gap:1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">
+    <span class="nav-brand-top">Meridian Capco, Inc.</span>
+    <span class="nav-brand-main">Publishing</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="divisions.html">Divisions</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a href="contact.html" class="nav-cta">Inquire</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-division-label fade-up">Division III — Meridian Publishing</div>
+    <h1 class="fade-up">Words That<br><em>Build Empires.</em></h1>
+    <p class="hero-sub fade-up">Publishing strategy, manuscript development, and content production for leaders who understand that a book is not just a book — it is a business asset.</p>
+    <div class="hero-ctas fade-up">
+      <a href="contact.html" class="btn-primary">Inquire About Publishing</a>
+      <a href="#offerings" class="btn-ghost">View Offerings</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-photo"></div>
+    <div class="hero-photo-overlay"></div>
+    <div class="hero-stat-block">
+      <div class="hero-stat">
+        <div class="hero-stat-num">Your</div>
+        <div class="hero-stat-label">Story</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">Our</div>
+        <div class="hero-stat-label">Craft</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">Real</div>
+        <div class="hero-stat-label">Authority</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="rule-section"><div class="rule-line"></div><div class="rule-diamond"></div><div class="rule-line"></div></div>
+
+<!-- PHILOSOPHY -->
+<section class="philosophy">
+  <div class="philosophy-text">
+    <div class="section-label">Our Philosophy</div>
+    <h2>A Book Is Not<br>a Project. It's a <em>Platform.</em></h2>
+    <p>Most leaders who should write a book never do. Not because they lack something to say — but because the gap between expertise and manuscript feels insurmountable without the right structure and support.</p>
+    <p>Meridian Publishing exists to close that gap. We work with founders, executives, and subject matter experts to transform their knowledge, experience, and vision into polished, published works that open doors, build credibility, and create lasting intellectual capital.</p>
+    <p>A well-executed book is one of the most leveraged business moves a leader can make. It positions you permanently. It reaches audiences you cannot access in person. And it works for you long after the last word is written. We help you build it — and build it right.</p>
+  </div>
+  <div class="philosophy-quote">
+    <blockquote>"The right words, in the right hands, distributed to the right audience — that is where influence begins."</blockquote>
+    <cite>— Meridian Publishing</cite>
+  </div>
+</section>
+
+<!-- WHO WE SERVE -->
+<section class="audience">
+  <div class="section-label">Who We Serve</div>
+  <h2>Built for Leaders with<br><em>Something Worth Saying.</em></h2>
+  <p class="section-intro">We work with a specific kind of author — one who has the experience, the insight, and the audience to make a published work matter. Not everyone is ready. For those who are, we are the right partner.</p>
+  <div class="audience-grid">
+    <div class="audience-card">
+      <div class="audience-icon">E</div>
+      <div class="audience-title">Executives & Founders</div>
+      <div class="audience-desc">Leaders who want to codify their thinking, establish lasting authority in their field, and create a business asset that compounds over time.</div>
+    </div>
+    <div class="audience-card">
+      <div class="audience-icon">C</div>
+      <div class="audience-title">Coaches & Consultants</div>
+      <div class="audience-desc">Service professionals who understand that a book is the most powerful client acquisition tool available — and are ready to use it strategically.</div>
+    </div>
+    <div class="audience-card">
+      <div class="audience-icon">S</div>
+      <div class="audience-title">Subject Matter Experts</div>
+      <div class="audience-desc">Deep domain experts who carry knowledge that deserves to be published — but need an experienced team to transform that expertise into a compelling, readable book.</div>
+    </div>
+    <div class="audience-card">
+      <div class="audience-icon">T</div>
+      <div class="audience-title">Thought Leaders</div>
+      <div class="audience-desc">Speakers, educators, and influencers who are ready to extend their platform from the stage or screen into permanent, citable published work.</div>
+    </div>
+    <div class="audience-card">
+      <div class="audience-icon">O</div>
+      <div class="audience-title">Organizations & Brands</div>
+      <div class="audience-desc">Companies that want to establish intellectual authority in their category, position their leadership as industry voices, or produce content that supports their broader marketing strategy.</div>
+    </div>
+    <div class="audience-card">
+      <div class="audience-icon">M</div>
+      <div class="audience-title">Meridian Divisions</div>
+      <div class="audience-desc">Cross-division publishing support for all Meridian brands — ensuring every division has access to the same publishing standards and content production capabilities.</div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFERINGS -->
+<section class="offerings" id="offerings">
+  <div class="section-label">Publishing Offerings</div>
+  <h2>From Idea to<br><em>Published Authority.</em></h2>
+  <p class="section-intro">We offer a complete range of publishing services — from initial strategy through manuscript development, editing, and distribution guidance.</p>
+  <div class="offerings-grid">
+    <div class="offering-card">
+      <div class="offering-num">01</div>
+      <div class="offering-label">Offering One</div>
+      <div class="offering-title">Book Strategy & Development</div>
+      <div class="offering-desc">For leaders with an idea but no clear path to a manuscript. We build the blueprint — concept, structure, positioning, and audience strategy — before a word is written.</div>
+      <ul class="offering-bullets">
+        <li>Concept refinement and market positioning</li>
+        <li>Target audience and reader outcome definition</li>
+        <li>Chapter structure and manuscript architecture</li>
+        <li>Publishing pathway analysis — traditional vs. self</li>
+        <li>Author platform and pre-publication strategy</li>
+      </ul>
+    </div>
+    <div class="offering-card">
+      <div class="offering-num">02</div>
+      <div class="offering-label">Offering Two</div>
+      <div class="offering-title">Ghostwriting & Manuscript Development</div>
+      <div class="offering-desc">For executives who have the expertise and the vision — but not the time or inclination to write it themselves. We write it for you, in your voice, to your standard.</div>
+      <ul class="offering-bullets">
+        <li>Voice discovery and style documentation</li>
+        <li>Interview-based content capture process</li>
+        <li>Full manuscript drafting and development</li>
+        <li>Editorial review and revision cycles</li>
+        <li>Final manuscript preparation for publication</li>
+      </ul>
+    </div>
+    <div class="offering-card">
+      <div class="offering-num">03</div>
+      <div class="offering-label">Offering Three</div>
+      <div class="offering-title">Content Strategy & Editorial Production</div>
+      <div class="offering-desc">For leaders who need a consistent, high-quality content presence — long-form articles, white papers, thought leadership essays, and strategic content platforms.</div>
+      <ul class="offering-bullets">
+        <li>Content strategy and editorial calendar development</li>
+        <li>Long-form article and essay production</li>
+        <li>White papers and industry reports</li>
+        <li>LinkedIn and professional platform content</li>
+        <li>Newsletter and email content development</li>
+      </ul>
+    </div>
+    <div class="offering-card">
+      <div class="offering-num">04</div>
+      <div class="offering-label">Offering Four</div>
+      <div class="offering-title">Author Positioning & Thought Leadership</div>
+      <div class="offering-desc">For published or near-published authors ready to build the platform that maximizes their book's reach and converts readers into clients, partners, or advocates.</div>
+      <ul class="offering-bullets">
+        <li>Author brand and positioning strategy</li>
+        <li>Speaking and media outreach frameworks</li>
+        <li>Book launch strategy and execution support</li>
+        <li>Podcast and media placement advisory</li>
+        <li>Ongoing thought leadership content production</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process">
+  <div class="section-label">Our Process</div>
+  <h2>From First Conversation<br>to <em>Published Work.</em></h2>
+  <p class="section-intro">Every Meridian Publishing engagement follows the same disciplined four-step process — from first idea to final page.</p>
+  <div class="process-steps">
+    <div class="process-step">
+      <div class="step-circle">01</div>
+      <div class="step-title">Discover</div>
+      <div class="step-desc">We learn your story, your expertise, your audience, and your goals — before we touch the manuscript.</div>
+    </div>
+    <div class="process-step">
+      <div class="step-circle">02</div>
+      <div class="step-title">Architect</div>
+      <div class="step-desc">We design the structure, positioning, and publishing strategy that gives your work the best possible foundation.</div>
+    </div>
+    <div class="process-step">
+      <div class="step-circle">03</div>
+      <div class="step-title">Create</div>
+      <div class="step-desc">We develop the manuscript — whether you write it, we write it, or we develop it together in structured collaboration.</div>
+    </div>
+    <div class="process-step">
+      <div class="step-circle">04</div>
+      <div class="step-title">Launch</div>
+      <div class="step-desc">We prepare your work for publication and build the author platform and launch strategy to maximize its reach and impact.</div>
+    </div>
+  </div>
+</section>
+
+<!-- OUTCOMES -->
+<section class="outcomes">
+  <div class="section-label">What You'll Gain</div>
+  <h2>Outcomes That<br><em>Outlast the Conversation.</em></h2>
+  <p class="section-intro">A published book does not expire. The authority it builds, the doors it opens, and the clients it attracts work long after publication day.</p>
+  <div class="outcomes-split">
+    <ul class="outcomes-list">
+      <li><div class="outcome-marker">→</div><div class="outcome-text">A published work that establishes you as the definitive voice in your field</div></li>
+      <li><div class="outcome-marker">→</div><div class="outcome-text">A business development asset that works around the clock without your presence</div></li>
+      <li><div class="outcome-marker">→</div><div class="outcome-text">Speaking, media, and partnership opportunities that follow from published authority</div></li>
+      <li><div class="outcome-marker">→</div><div class="outcome-text">A codified intellectual framework that sharpens your own thinking and communication</div></li>
+      <li><div class="outcome-marker">→</div><div class="outcome-text">Credibility that no resume, website, or social profile can replicate</div></li>
+      <li><div class="outcome-marker">→</div><div class="outcome-text">A legacy asset — something permanent that represents your contribution to your field</div></li>
+    </ul>
+    <div class="outcomes-accent">
+      <div class="outcomes-accent-headline">Your expertise deserves more than a <em>LinkedIn post.</em></div>
+      <p>You have spent years — maybe decades — building knowledge, navigating challenges, and developing a perspective on your field that most people in it do not have. That expertise deserves a permanent home. Not a thread. Not a podcast episode. A book.</p>
+      <br>
+      <p>Meridian Publishing exists to help you build that home — with the craft, the strategy, and the standard it deserves.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonial-section">
+  <div class="section-label" style="justify-content:center;">What Clients Say</div>
+  <h2 style="text-align:center;">The Standard<br><em>Speaks for Itself.</em></h2>
+  <div class="testimonials-row">
+    <div class="testi-card">
+      <div class="testi-quote-mark">"</div>
+      <div class="testi-text">I had the knowledge and the story. What I didn't have was the structure. Meridian Publishing gave me a blueprint that made the entire manuscript feel inevitable — not overwhelming.</div>
+      <div class="testi-author">Executive Coach & Speaker</div>
+      <div class="testi-role">Leadership Development — Atlanta, GA</div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-quote-mark">"</div>
+      <div class="testi-text">They captured my voice in a way I couldn't have done myself. When I read the manuscript, it sounded exactly like me — only more articulate and more organized than I tend to be in real time.</div>
+      <div class="testi-author">Founder & Industry Expert</div>
+      <div class="testi-role">Financial Services — Southeast Region</div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-quote-mark">"</div>
+      <div class="testi-text">Within three months of publishing, I had booked more speaking engagements than I had in the previous two years. The book did exactly what they said it would do.</div>
+      <div class="testi-author">Consultant & Published Author</div>
+      <div class="testi-role">Management Consulting — National</div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="section-label">Common Questions</div>
+  <h2>Before You <em>Inquire.</em></h2>
+  <div class="faq-grid">
+    <div class="faq-item">
+      <div class="faq-q">Do I need to write the book myself?</div>
+      <div class="faq-a">No. Our ghostwriting offering is designed for leaders who want a polished, published book in their voice — without writing it themselves. This is a standard, professional service used by executives and public figures at every level.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">How long does a book project take?</div>
+      <div class="faq-a">A complete ghostwritten manuscript typically takes four to eight months depending on scope, complexity, and your availability for interviews and reviews. Strategy-only or content platform engagements can move faster.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Do you help with self-publishing or traditional publishing?</div>
+      <div class="faq-a">Both. We provide pathway analysis that helps you understand the genuine tradeoffs between traditional publishing, hybrid publishing, and self-publishing — and we support execution across all three paths.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What kind of books do you work on?</div>
+      <div class="faq-a">We specialize in non-fiction business books — leadership, entrepreneurship, strategy, professional development, industry-specific expertise, and memoir-adjacent works by business figures. We do not work on fiction.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What if I already have a draft?</div>
+      <div class="faq-a">We work with existing manuscripts at any stage — whether you need structural development, editorial refinement, or a complete rewrite. We assess what you have and recommend the most efficient path forward.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Is my project kept confidential?</div>
+      <div class="faq-a">Absolutely. Every engagement operates under strict confidentiality. We do not disclose client relationships, projects, or manuscript details — ever. Your name on the cover is the only attribution that matters.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<div class="cta-band">
+  <div>
+    <div class="cta-band-headline">Ready to Turn Your<br><em>Expertise into Authority?</em></div>
+    <div class="cta-band-sub">Tell us what you know. We'll help the world know it too.</div>
+  </div>
+  <a href="contact.html" class="btn-dark">Start the Conversation</a>
+</div>
+
+<footer class="footer-mini">
+  <div class="footer-mini-brand">Meridian Publishing — A Division of Meridian Capco, Inc.</div>
+  <ul class="footer-mini-links">
+    <li><a href="divisions.html">All Divisions</a></li>
+    <li><a href="about.html">About Meridian</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</footer>
+
+</body>
+</html>
